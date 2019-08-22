@@ -11,4 +11,4 @@ jobs:
     plan:
       - get: university-resource
       - task: list-files
-        file: university-resource/university-students/ci/tasks/hello-world.yml
+        file: university-resource/ci/tasks/hello-world.yml
