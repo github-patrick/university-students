@@ -2,4 +2,13 @@ resources:
   - name: university-resource
     type: git
     source:
-      uri:
+      uri: https://github.com/github-patrick/university-students.git
+      branch: master
+
+jobs:
+  - name: job-hello-world
+    public: true
+    plan:
+      - get: university-resource
+      - task: list-files
+        file: university-resource/university-students/ci/tasks/hello-world.yml
