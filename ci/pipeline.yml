@@ -1,0 +1,5 @@
+resources:
+  - name: university-resource
+    type: git
+    source:
+      uri:
