@@ -10,5 +10,6 @@ jobs:
     public: true
     plan:
       - get: university-resource
+        - trigger: true
       - task: list-files
         file: university-resource/ci/tasks/hello-world.yml
