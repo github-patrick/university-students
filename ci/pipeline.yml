@@ -13,3 +13,5 @@ jobs:
         trigger: true
       - task: list-files
         file: university-resource/ci/tasks/hello-world.yml
+      - task: run-tests
+        file: university-resource/ci/scripts/run-tests.sh
