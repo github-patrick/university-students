@@ -14,4 +14,10 @@ jobs:
       - task: list-files
         file: university-resource/ci/tasks/hello-world.yml
       - task: run-tests
-        file: university-resource/ci/scripts/run-tests.sh
+        file: university-resource/ci/tasks/run-tests.yml
+
+  - name: second-job
+    public: true
+    plan:
+      - get: university-resource
+        trigger: true
