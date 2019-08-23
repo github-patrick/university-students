@@ -4,6 +4,10 @@ image_resource:
   type: docker-image
   source: {repository: busybox}
 
+
+inputs:
+  - name: university-resource
+
 run:
   path: ls
   args: [-al]
