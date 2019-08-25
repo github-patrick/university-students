@@ -2,14 +2,16 @@ platform: linux
 
 image_resource:
   type: docker-image
-  source: {repository: openjdk}
+    source:
+      repository: openjdk
+      tag: 8-jre-alpine}
 
 inputs:
   - name: university-resource
 
 
 run:
-  path: /bin/sh
+  path: sh
   args:
     - -c
       - |
