@@ -1,5 +1,5 @@
 #!/bin/sh
 
 set -e
-cd ../../
+cd university-resource
 mvn test
