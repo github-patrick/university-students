@@ -4,7 +4,7 @@ image_resource:
   type: docker-image
     source:
       repository: openjdk
-      tag: 8-jre-alpine}
+      tag: 8-jre-alpine
 
 inputs:
   - name: university-resource
