@@ -11,12 +11,9 @@ inputs:
 
 
 run:
-  path: sh
-  args:
-    - -c
-      - |
-      cd university-resource
-      ls -la
+  path: ls
+  args: [-la]
+
 
 #run:
 #  path: university-resource/ci/scripts/run-tests.sh
