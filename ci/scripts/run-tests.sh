@@ -2,4 +2,4 @@
 
 set -e
 cd ../../
-./mvnw test
+mvn test
