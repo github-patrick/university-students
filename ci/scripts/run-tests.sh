@@ -1,5 +1,5 @@
 #!/bin/bash
 
 set -e
-cd university-students/
+cd ../../
 ./mvnw test
