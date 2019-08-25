@@ -1,4 +1,5 @@
 #!/bin/bash
 
 set -e
-ls -la
+cd ../../
+./mvnw test
