@@ -9,11 +9,5 @@ image_resource:
 inputs:
   - name: university-resource
 
-
 run:
-  path: ls
-  args: [-la]
-
-
-#run:
-#  path: university-resource/ci/scripts/run-tests.sh
+  path: university-resource/ci/scripts/run-tests.sh
