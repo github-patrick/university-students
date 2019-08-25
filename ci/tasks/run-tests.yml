@@ -8,4 +8,4 @@ inputs:
   - name: university-resource
 
 run:
-  path: university-resource/ci/scripts/run-tests.sh
+  path: ci/scripts/run-tests.sh
