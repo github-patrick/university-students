@@ -7,5 +7,14 @@ image_resource:
 inputs:
   - name: university-resource
 
+
 run:
-  path: university-resource/ci-hello/scripts/run-tests.sh
+  path: /bin/bash
+  args:
+    - -c
+      - |
+      cd university-resource
+      ls -la
+
+#run:
+#  path: university-resource/ci/scripts/run-tests.sh
