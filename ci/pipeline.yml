@@ -11,16 +11,14 @@ jobs:
     plan:
       - get: university-resource
         trigger: true
-      - task: list-files
+      - task: build-project
         file: university-resource/ci/tasks/build.yml
-      - task: run-tests
-        file: university-resource/ci/tasks/run-tests.yml
 
-  - name: second-job
+  - name: e2e-tests
     public: true
     plan:
       - get: university-resource
         trigger: true
-        passed: [job-hello-world]
+        passed: [build]
       - task: run-tests
         file: university-resource/ci/tasks/run-tests.yml
