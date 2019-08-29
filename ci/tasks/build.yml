@@ -9,7 +9,7 @@ image_resource:
 inputs:
   - name: university-resource
 
-output:
+outputs:
   - name: built-university-resource
 
 run:
