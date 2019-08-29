@@ -2,4 +2,4 @@
 
 set -e
 cd university-resource
-mvn install
+mvn clean install -Dspring.profiles.active=dev
