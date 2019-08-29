@@ -9,5 +9,5 @@ import org.junit.runner.RunWith;
 @CucumberOptions(plugin = "pretty",
                  glue = {"com.university.bdd.steps", "com.university.bdd.hooks"},
                  features = "src/test/resources/bdd/features")
-public class RunCukesTest {
+public class RunCukesTestIT {
 }

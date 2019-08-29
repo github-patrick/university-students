@@ -6,7 +6,6 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.restassured.response.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 import static org.junit.Assert.assertEquals;
@@ -14,9 +13,11 @@ import static org.junit.Assert.assertNotNull;
 
 public class StudentSteps {
 
-    @Autowired
     private Context context;
 
+    public StudentSteps(Context context) {
+        this.context = context;
+    }
 
     @Given("I have a student that wants to be registered")
     public void i_have_a_student_that_wants_to_be_registered() {
