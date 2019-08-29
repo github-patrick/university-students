@@ -11,7 +11,6 @@ public class StudentUtils {
     public static Response createStudent(StudentDto studentDto) {
         return RestAssured.
                 given()
-                .log().all()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .body(studentDto).

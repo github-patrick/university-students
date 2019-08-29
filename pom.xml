@@ -17,6 +17,7 @@
     <properties>
         <java.version>1.8</java.version>
         <model.mapper.version>2.3.4</model.mapper.version>
+        <docker.image.name>university-app</docker.image.name>
     </properties>
 
     <dependencies>
@@ -71,9 +72,11 @@
 
         <dependency>
             <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-spring</artifactId>
-            <version>4.3.1</version>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <scope>test</scope>
+            <version>4.2.0</version>
         </dependency>
+
 
         <dependency>
             <groupId>io.rest-assured</groupId>
@@ -88,14 +91,6 @@
             <artifactId>modelmapper</artifactId>
             <version>${model.mapper.version}</version>
         </dependency>
-
-        <!--dependency injection library-->
-<!--        <dependency>-->
-<!--            <groupId>info.cukes</groupId>-->
-<!--            <artifactId>cucumber-picocontainer</artifactId>-->
-<!--            <version>1.2.5</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -106,5 +101,97 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>local-e2e</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.19.1</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.22.0</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.27.2</version>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <alias>mysql-db</alias>
+                                    <name>mysql</name>
+                                    <run>
+                                        <ports>
+                                            <port>3308:3306</port>
+                                        </ports>
+                                        <env>
+                                            <MYSQL_ROOT_PASSWORD>root</MYSQL_ROOT_PASSWORD>
+                                            <MYSQL_DATABASE>university_db</MYSQL_DATABASE>
+                                            <MYSQL_PASSWORD>root</MYSQL_PASSWORD>
+                                        </env>
+                                        <network>
+                                            <name>test-network</name>
+                                            <alias>mysql-db</alias>
+                                        </network>
+                                        <wait>
+                                            <log>MySQL init process done. Ready for start up.</log>
+                                            <time>30000</time>
+                                        </wait>
+                                    </run>
+                                </image>
+                                <image>
+                                    <alias>university-app</alias>
+                                    <name>${docker.image.name}:1.0</name>
+                                    <run>
+                                        <dependsOn>
+                                            <container>mysql-db</container>
+                                        </dependsOn>
+                                        <ports>
+                                            <port>8888:8888</port>
+                                        </ports>
+                                        <network>
+                                            <name>test-network</name>
+                                            <alias>university-app</alias>
+                                        </network>
+                                        <wait>
+                                            <http>
+                                                <url>http://127.0.0.1:8888/api/health</url>
+                                                <status>200</status>
+                                            </http>
+                                            <time>30000</time>
+                                        </wait>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>stop</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

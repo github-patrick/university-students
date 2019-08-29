@@ -8,6 +8,5 @@ inputs:
   - name: university-resource
 
 run:
-  path: ls
-  args: [-al]
+  path: university-resource/ci/scripts/build.sh
 
