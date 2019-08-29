@@ -4,6 +4,13 @@ resources:
     source:
       uri: https://github.com/github-patrick/university-students.git
       branch: master
+  - name: university-image
+    type: docker-image
+    source:
+      repository: ((docker-hub-username))/university-app
+      email: ((docker-hub-email))
+      username: ((docker-hub-username))
+      password: ((docker-hub-password))
 
 jobs:
   - name: build
@@ -14,11 +21,26 @@ jobs:
       - task: build-project
         file: university-resource/ci/tasks/build.yml
 
-  - name: e2e-tests
+
+  - name: publish
     public: true
     plan:
       - get: university-resource
         trigger: true
         passed: [build]
+      - task: publish-image
+        file: university-resource/ci/tasks/publish.yml
+
+      - put: university-image
+        params:
+          build: built-university-resource
+
+  - name: e2e-tests
+    public: true
+    plan:
+      - get: university-resource
+        trigger: true
+        passed: [publish]
       - task: run-tests
         file: university-resource/ci/tasks/run-tests.yml
+
