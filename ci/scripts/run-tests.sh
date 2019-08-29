@@ -2,4 +2,4 @@
 
 set -e
 cd university-resource
-mvn install
+mvn verify -Plocal-e2e
