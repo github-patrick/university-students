@@ -32,7 +32,7 @@ jobs:
 
       - put: university-image
         params:
-          build: built-university-resource
+          build: university-resource
 
   - name: e2e-tests
     public: true

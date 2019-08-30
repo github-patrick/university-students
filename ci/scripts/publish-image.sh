@@ -2,4 +2,4 @@
  set -e
 
 echo publishing the image..........
-ls -l
+ls -l university-resource
