@@ -6,7 +6,8 @@ image_resource:
     repository: ubuntu
 
 inputs:
-  name: built-university-resource
+  - name: university-resource
+  - name: built-university-resource
 
 run:
   path: university-resource/ci/scripts/publish-image.sh
