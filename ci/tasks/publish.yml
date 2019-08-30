@@ -7,3 +7,7 @@ image_resource:
 
 inputs:
   name: built-university-resource
+
+run:
+  path: university-resource/ci/scripts/publish-image.sh
+
