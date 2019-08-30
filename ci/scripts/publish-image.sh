@@ -1,6 +1,5 @@
 #!/bin/sh
  set -e
 
-cd built-university-resource
-ls -l
+ls  built-university-resource
 echo publishing the image..........

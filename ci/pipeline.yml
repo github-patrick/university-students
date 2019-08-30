@@ -27,7 +27,7 @@ jobs:
     plan:
       - get: university-resource
         trigger: true
-        passed: [build]
+#        passed: [build]
       - task: publish-image
         file: university-resource/ci/tasks/publish.yml
 
