@@ -7,4 +7,4 @@ mvn clean install -Dspring.profiles.active=dev
 
 cd ../
 
-cp university-resource/* built-university-resource
+cp -R university-resource/* built-university-resource
