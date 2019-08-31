@@ -9,9 +9,5 @@ image_resource:
 inputs:
   - name: university-resource
 
-outputs:
-  - name: built-university-resource
-
 run:
   path: university-resource/ci/scripts/build.sh
-

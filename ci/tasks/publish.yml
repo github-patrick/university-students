@@ -10,6 +10,9 @@ inputs:
   - name: university-resource
   - name: built-university-resource
 
+outputs:
+  - name: built-university-resource
+
 run:
   path: university-resource/ci/scripts/publish-image.sh
 
