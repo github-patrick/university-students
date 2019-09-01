@@ -4,7 +4,7 @@ services:
   university-app:
     build:
       context: .
-    image: university-app:1.0
+    image: dockerdozens/university-app:latest
     ports:
       - "8888:8888"
     container_name: universityapp

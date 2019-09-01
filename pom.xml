@@ -17,7 +17,7 @@
     <properties>
         <java.version>1.8</java.version>
         <model.mapper.version>2.3.4</model.mapper.version>
-        <docker.image.name>university-app</docker.image.name>
+        <docker.image.name>dockerdozens/university-app</docker.image.name>
     </properties>
 
     <dependencies>
@@ -124,6 +124,15 @@
                         <artifactId>docker-maven-plugin</artifactId>
                         <version>0.27.2</version>
                         <configuration>
+                            <autoCreateCustomNetworks>true</autoCreateCustomNetworks>
+                            <machine>
+                                <name>maven</name>
+                                <autoCreate>true</autoCreate>
+                                <createOptions>
+                                    <driver>virtualbox</driver>
+                                    <virtualbox-cpu-count>2</virtualbox-cpu-count>
+                                </createOptions>
+                            </machine>
                             <images>
                                 <image>
                                     <alias>mysql-db</alias>
@@ -149,7 +158,7 @@
                                 </image>
                                 <image>
                                     <alias>university-app</alias>
-                                    <name>${docker.image.name}:1.0</name>
+                                    <name>${docker.image.name}:latest</name>
                                     <run>
                                         <dependsOn>
                                             <container>mysql-db</container>
@@ -163,7 +172,7 @@
                                         </network>
                                         <wait>
                                             <http>
-                                                <url>http://127.0.0.1:8888/api/health</url>
+                                                <url>http://192.168.99.100:8888/api/health</url>
                                                 <status>200</status>
                                             </http>
                                             <time>30000</time>
