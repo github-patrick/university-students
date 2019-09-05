@@ -41,5 +41,6 @@ jobs:
         trigger: true
         passed: [publish]
       - task: run-tests
+        privileged: true
         file: university-resource/ci/tasks/run-tests.yml
 

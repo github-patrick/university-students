@@ -10,4 +10,11 @@ inputs:
   - name: university-resource
 
 run:
-  path: university-resource/ci/scripts/run-tests.sh
+  path: bash
+  args:
+    - -exc
+    - |
+      source /docker-lib.sh
+      start_docker
+
+      docker run hello-world
