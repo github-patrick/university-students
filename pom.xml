@@ -124,18 +124,6 @@
                         <artifactId>docker-maven-plugin</artifactId>
                         <version>0.27.2</version>
                         <configuration>
-<!--                            <autoCreateCustomNetworks>true</autoCreateCustomNetworks>-->
-<!--                            <machine>-->
-<!--                                <name>foo</name>-->
-<!--                                <autoCreate>true</autoCreate>-->
-<!--                                <createOptions>-->
-<!--                                    <driver>virtualbox</driver>-->
-<!--                                    <virtualbox-cpu-count>2</virtualbox-cpu-count>-->
-<!--                                </createOptions>-->
-<!--                            </machine>-->
-<!--&lt;!&ndash;                            <dockerHost>tcp://192.168.99.100:2376</dockerHost>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <certPath>/tmp/build/e55deab7/certs</certPath>&ndash;&gt;-->
-                            <verbose>true</verbose>
                             <images>
                                 <image>
                                     <alias>mysql-db</alias>
