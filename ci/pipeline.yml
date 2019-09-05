@@ -44,3 +44,22 @@ jobs:
         privileged: true
         file: university-resource/ci/tasks/run-tests.yml
 
+#        config:
+#          platform: linux
+#          image_resource:
+#            type: docker-image
+#            source:
+#              repository: amidos/dcind
+#              tag: 2.0
+#          run:
+#            path: bash
+#            args:
+#              - -exc
+#              - |
+#                source /docker-lib.sh
+#                start_docker
+#
+#                docker pull busybox
+
+
+

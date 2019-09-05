@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-source /docker-lib.sh
-start_docker
-
-docker images
-
+cd university-resource
+mvn verify -Plocal-e2e
 
