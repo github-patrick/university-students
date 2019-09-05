@@ -124,6 +124,7 @@
                         <artifactId>docker-maven-plugin</artifactId>
                         <version>0.27.2</version>
                         <configuration>
+<!--                            <dockerHost>unix://var/run/docker.sock</dockerHost>-->
                             <images>
                                 <image>
                                     <alias>mysql-db</alias>

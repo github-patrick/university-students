@@ -12,7 +12,7 @@ public class ServerHook {
     @Before
     public void setUp() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-        RestAssured.baseURI = "http://192.168.99.100";
+        RestAssured.baseURI = "http://localhost";
         RestAssured.port = this.port;
     }
 
