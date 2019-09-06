@@ -7,5 +7,7 @@
 mvnw
 mvnw.cmd
 target/
+ci/pipeline-test.yml
+${env.MAVEN_LOCAL_REPO}/
 
 
