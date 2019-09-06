@@ -145,7 +145,7 @@
                                         </network>
                                         <wait>
                                             <log>MySQL init process done. Ready for start up.</log>
-                                            <time>60000</time>
+                                            <time>80000</time>
                                         </wait>
                                     </run>
                                 </image>
@@ -168,7 +168,7 @@
                                                 <url>http://localhost:8888/api/health</url>
                                                 <status>200</status>
                                             </http>
-                                            <time>30000</time>
+                                            <time>80000</time>
                                         </wait>
                                     </run>
                                 </image>
