@@ -20,26 +20,31 @@ jobs:
         trigger: true
       - task: build-project
         file: university-resource/ci/tasks/build.yml
-
-  - name: publish
-    public: true
-    plan:
-      - get: university-resource
-        trigger: true
-        passed: [build]
       - task: publish-image
         file: university-resource/ci/tasks/publish.yml
-
       - put: university-image
         params:
-          build: built-university-resource
+          build: artificaft-for-imagee
+
+#  - name: publish
+#    public: true
+#    plan:
+#      - get: university-resource
+#        trigger: true
+#        passed: [build]
+#      - task: publish-image
+#        file: university-resource/ci/tasks/publish.yml
+#
+#      - put: university-image
+#        params:
+#          build: built-university-resource
 
   - name: e2e-tests
     public: true
     plan:
       - get: university-resource
         trigger: true
-        passed: [publish]
+        passed: [build]
       - task: run-tests
         privileged: true
         file: university-resource/ci/tasks/run-tests.yml

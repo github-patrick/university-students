@@ -9,5 +9,8 @@ image_resource:
 inputs:
   - name: university-resource
 
+outputs:
+  - name: artificaft-for-image
+
 run:
   path: university-resource/ci/scripts/build.sh

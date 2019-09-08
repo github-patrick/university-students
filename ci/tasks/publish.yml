@@ -7,11 +7,11 @@ image_resource:
     tag: 3-jdk8
 
 inputs:
-  - name: university-resource
+  - name: artificaft-for-image
 
-outputs:
-  - name: built-university-resource
-
-run:
-  path: university-resource/ci/scripts/publish-image.sh
+#outputs:
+#  - name: built-university-resource
+#
+#run:
+#  path: university-resource/ci/scripts/publish-image.sh
 
