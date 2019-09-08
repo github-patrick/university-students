@@ -13,5 +13,5 @@ inputs:
 #  - name: built-university-resource
 #
 run:
-  path: university-resource/ci/scripts/publish-image.sh
+  path: artificaft-for-image/ci/scripts/publish-image.sh
 
