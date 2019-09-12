@@ -11,6 +11,16 @@ resources:
       email: ((docker-hub-email))
       username: ((docker-hub-username))
       password: ((docker-hub-password))
+  - name: resource-deploy-backend-app
+    type: cf
+    source:
+      api: https://api.run.pivotal.io
+      username: ((cf-username))
+      password: ((cf-password))
+      organization: ((cf-organization))
+      space: development
+      skip_cert_check: true
+
 
 jobs:
   - name: build
@@ -24,20 +34,7 @@ jobs:
         file: university-resource/ci/tasks/publish.yml
       - put: university-image
         params:
-          build: artificaft-for-imagee
-
-#  - name: publish
-#    public: true
-#    plan:
-#      - get: university-resource
-#        trigger: true
-#        passed: [build]
-#      - task: publish-image
-#        file: university-resource/ci/tasks/publish.yml
-#
-#      - put: university-image
-#        params:
-#          build: built-university-resource
+          build: artificaft-for-image
 
   - name: e2e-tests
     public: true
@@ -49,22 +46,18 @@ jobs:
         privileged: true
         file: university-resource/ci/tasks/run-tests.yml
 
-#        config:
-#          platform: linux
-#          image_resource:
-#            type: docker-image
-#            source:
-#              repository: amidos/dcind
-#              tag: 2.0
-#          run:
-#            path: bash
-#            args:
-#              - -exc
-#              - |
-#                source /docker-lib.sh
-#                start_docker
-#
-#                docker pull busybox
+  - name: deploy to production
+    public: true
+    serial: true
+    plan:
+      - get: university-resource
+        passed: [e2e-tests]
+      - task: deploy-to-prod
+        file: university-resource/ci/tasks/deploy-to-prod.yml
+      - put: resource-deploy-backend-app
+        params:
+          manifest: university-resource/manifest.yml
+
 
 
 
