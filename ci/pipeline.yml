@@ -51,6 +51,7 @@ jobs:
     serial: true
     plan:
       - get: university-resource
+        trigger: true
         passed: [e2e-tests]
       - task: deploy-to-prod
         file: university-resource/ci/tasks/deploy-to-prod.yml

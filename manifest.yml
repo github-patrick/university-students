@@ -1,3 +1,5 @@
 ---
 applications:
-  - name: university-app
+  - name: university-students
+    buildpacks:
+      https://github.com/cloudfoundry/java-buildpack.git
