@@ -2,4 +2,4 @@
 applications:
   - name: university-students
     buildpacks:
-    - https://github.com/cloudfoundry/java-buildpack.git
+    - https://java-buildpack.cloudfoundry.org/openjdk/trusty/x86_64/openjdk-1.8.0_121.tar.gz
