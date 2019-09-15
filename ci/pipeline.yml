@@ -58,7 +58,4 @@ jobs:
       - put: resource-deploy-backend-app
         params:
           manifest: university-resource/manifest.yml
-
-
-
-
+          path: artifacts/*.jar
