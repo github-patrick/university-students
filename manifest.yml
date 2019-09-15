@@ -1,4 +1,4 @@
 ---
 applications:
   - name: university-students
-    path: artefact-deploy/target/university-students-0.0.1-SNAPSHOT.jar
+    path: target/university-students-0.0.1-SNAPSHOT.jar
