@@ -3,10 +3,8 @@
 set -e
 cd university-resource
 
-mvn clean install -Dspring.profiles.active=dev
+mvn clean install -Dspring.profiles.active=dev -DskipTests
 
-cd ../
+cp -R target/*.jar ../artifacts/
 
-cp -R university-resource/target artefact-deploy
-
-ls artefact-deploy
+ls artifacts

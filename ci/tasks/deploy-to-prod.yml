@@ -10,7 +10,7 @@ inputs:
   - name: university-resource
 
 outputs:
-  - name: artefact-deploy
+  - name: artifacts
 
 run:
   path: university-resource/ci/scripts/deploy-to-prod.sh
