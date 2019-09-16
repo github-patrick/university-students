@@ -11,11 +11,11 @@ import io.restassured.response.Response;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class StudentSteps {
+public class AddStudentSteps {
 
     private Context context;
 
-    public StudentSteps(Context context) {
+    public AddStudentSteps(Context context) {
         this.context = context;
     }
 

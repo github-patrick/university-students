@@ -1,4 +1,4 @@
-Feature: Test
+Feature: Creation of Students
   In order to have students registered to the university
   As an student
   I want to be added to the application when I request to be registered

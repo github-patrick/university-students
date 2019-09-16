@@ -13,8 +13,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -66,6 +68,14 @@ public class StudentControllerTest {
                 .content(new ObjectMapper().writeValueAsString(studentDto)))
                 .andExpect(status().isBadRequest());
 
+    }
+
+    @Test
+    public void shouldListAllStudents() throws Exception {
+        given(studentService.getAllStudents()).willReturn(Arrays.asList(studentDtoSaved));
+        mockMvc.perform(get("/students")
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
     }
 
 }
