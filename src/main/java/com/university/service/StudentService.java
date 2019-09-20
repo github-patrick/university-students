@@ -9,4 +9,6 @@ public interface StudentService {
     StudentDto addStudent(StudentDto studentDto);
 
     List<StudentDto> getAllStudents();
+
+    void deleteAllStudents();
 }
