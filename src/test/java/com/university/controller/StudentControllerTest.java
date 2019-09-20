@@ -94,4 +94,11 @@ public class StudentControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    public void unauthorizedClientCannotDeleteAllStudents() throws Exception {
+        mockMvc.perform(delete("/students"))
+                .andExpect(status().isUnauthorized())
+                .andDo(print());
+    }
+
 }
