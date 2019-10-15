@@ -3,6 +3,7 @@ package com.university.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.university.config.SecurityConfig;
 import com.university.dtos.StudentDto;
+import com.university.exception.StudentDoesNotExistException;
 import com.university.service.StudentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -98,6 +100,23 @@ public class StudentControllerTest {
     public void unauthorizedClientCannotDeleteAllStudents() throws Exception {
         mockMvc.perform(delete("/students"))
                 .andExpect(status().isUnauthorized())
+                .andDo(print());
+    }
+
+    @Test
+    public void shouldRetrieveStudent() throws Exception {
+        given(studentService.getStudent(1L)).willReturn(Optional.of(studentDto));
+        mockMvc.perform(get("/students/1"))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    public void shouldNotRetrieveStudentThatDoesNotExist() throws Exception {
+        given(studentService.getStudent(111L)).willThrow(StudentDoesNotExistException.class);
+        mockMvc.perform(get("/students/111")
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isNotFound())
                 .andDo(print());
     }
 
