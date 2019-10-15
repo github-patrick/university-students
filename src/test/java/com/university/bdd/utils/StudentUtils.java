@@ -33,7 +33,7 @@ public class StudentUtils {
                 .extract().response();
     }
 
-    public static StudentDto getStudent() {
+    public static StudentDto getStudentDto() {
         return StudentDto.builder()
                 .firstName(faker.name().firstName())
                 .lastName(faker.name().lastName())
@@ -45,4 +45,14 @@ public class StudentUtils {
                 .build();
     }
 
+    public static Response getStudent(StudentDto studentDto) {
+        return RestAssured.given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(studentDto)
+                .pathParam("id", studentDto.getId())
+                .when()
+                    .get("students/{id}")
+                .andReturn();
+    }
 }

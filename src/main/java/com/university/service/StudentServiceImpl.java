@@ -2,6 +2,7 @@ package com.university.service;
 
 import com.university.domain.Student;
 import com.university.dtos.StudentDto;
+import com.university.exception.StudentDoesNotExistException;
 import com.university.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -45,5 +47,12 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteAllStudents() {
         studentRepository.deleteAll();
+    }
+
+    @Override
+    public Optional<StudentDto> getStudent(Long id) {
+        StudentDto studentDto = modelMapper.map(studentRepository.findById(id)
+                .orElseThrow(()-> new StudentDoesNotExistException("Student not found with id " + id)), StudentDto.class);
+        return Optional.of(studentDto);
     }
 }
