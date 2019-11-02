@@ -8,16 +8,10 @@ import com.university.service.StudentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -69,15 +63,29 @@ public class StudentControllerTest {
     }
 
     @Test
-    public void shouldNotCreateStudent() throws Exception {
+    public void shouldNotCreateStudentUnder18() throws Exception {
 
         studentDto.setAge(17);
         mockMvc.perform(post("/students")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(studentDto)))
+                .andDo(print())
+                .andExpect(jsonPath("$.error").value("Age must be greater than 18"))
                 .andExpect(status().isBadRequest());
+    }
 
+    @Test
+    public void shouldNotCreateStudentOver120() throws Exception {
+
+        studentDto.setAge(121);
+        mockMvc.perform(post("/students")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(studentDto)))
+                .andDo(print())
+                .andExpect(jsonPath("$.error").value("Age must be greater than 120"))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -92,23 +100,20 @@ public class StudentControllerTest {
     @WithMockUser
     public void shouldDeleteAllStudents() throws Exception {
         mockMvc.perform(delete("/students"))
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(status().isOk());
     }
 
     @Test
     public void unauthorizedClientCannotDeleteAllStudents() throws Exception {
         mockMvc.perform(delete("/students"))
-                .andExpect(status().isUnauthorized())
-                .andDo(print());
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
     public void shouldRetrieveStudent() throws Exception {
         given(studentService.getStudent(1L)).willReturn(Optional.of(studentDto));
         mockMvc.perform(get("/students/1"))
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -116,8 +121,30 @@ public class StudentControllerTest {
         given(studentService.getStudent(111L)).willThrow(StudentDoesNotExistException.class);
         mockMvc.perform(get("/students/111")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isNotFound())
-                .andDo(print());
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void shouldUpdateStudent() throws Exception {
+        mockMvc.perform(put("/students/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(new ObjectMapper().writeValueAsString(studentDto)))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldNotUpdateInvalidStudent() throws Exception {
+        studentDto.setAge(100);
+        studentDto.setCreatedAt(null);
+        studentDto.setModifiedAt(null);
+        studentDto.setDeposit(-100.00);
+        studentDto.setCountry(null);
+
+        mockMvc.perform(put("/students/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(new ObjectMapper().writeValueAsString(studentDto)))
+                .andExpect(status().isBadRequest());
+
     }
 
 }
