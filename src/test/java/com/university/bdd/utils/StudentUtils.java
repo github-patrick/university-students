@@ -55,4 +55,19 @@ public class StudentUtils {
                     .get("students/{id}")
                 .andReturn();
     }
+
+    public static Response updateStudent(StudentDto studentDto) {
+
+        return RestAssured.given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(studentDto)
+                .pathParam("id", studentDto.getId())
+                .log().all()
+                .when()
+                    .put("students/{id}")
+
+                .then().log().all().extract().response()
+                .andReturn();
+    }
 }

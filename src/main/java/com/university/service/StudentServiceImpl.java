@@ -55,4 +55,17 @@ public class StudentServiceImpl implements StudentService {
                 .orElseThrow(()-> new StudentDoesNotExistException("Student not found with id " + id)), StudentDto.class);
         return Optional.of(studentDto);
     }
+
+    @Override
+    public void updateStudent(StudentDto studentDto, Long id) {
+        log.info("Updating student");
+
+        StudentDto studentDtoRetrieved = getStudent(id).get();
+        studentDto.setId(studentDtoRetrieved.getId());
+        studentDto.setCreatedAt(studentDtoRetrieved.getCreatedAt());
+        studentRepository.save(modelMapper.map(studentDto, Student.class));
+
+        log.info("Updated student");
+    }
+
 }

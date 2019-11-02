@@ -15,4 +15,6 @@ public interface StudentService {
     void deleteAllStudents();
 
     Optional<StudentDto> getStudent(Long id);
+
+    void updateStudent(StudentDto studentDto, Long id);
 }

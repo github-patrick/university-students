@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(StudentController.STUDENT_REQUEST_MAPPING)
@@ -43,6 +44,13 @@ public class StudentController {
     public ResponseEntity deleteAllStudents() {
         studentService.deleteAllStudents();
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<StudentDto> updateStudent(@RequestBody @Valid StudentDto studentDto, @PathVariable Long id) {
+        studentService.updateStudent(studentDto, id);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 
