@@ -16,7 +16,7 @@ Feature: Creation of Students
     Then the student should not be registered
 
   Scenario: A student cannot be added if he or she does not specify a nationality
-    Given I have a student that wants to be registered that does not nationality
+    Given I have a student that wants to be registered that does not have a nationality
     When I register the student
     Then the student should not be registered
 

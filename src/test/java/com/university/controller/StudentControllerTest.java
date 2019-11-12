@@ -1,7 +1,7 @@
 package com.university.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.university.config.SecurityConfig;
+import com.university.domain.DegreeType;
 import com.university.dtos.StudentDto;
 import com.university.exception.StudentDoesNotExistException;
 import com.university.service.StudentService;
@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -40,6 +41,8 @@ public class StudentControllerTest {
 
     public StudentControllerTest() {
         studentDto = StudentDto.builder().firstName("Jan").lastName("Melbourne")
+                .degreeType(DegreeType.BSc)
+                .branch("Kings Cross")
                 .country("India").deposit(200.00).age(19).build();
 
         studentDtoSaved = StudentDto.builder().id(1l).firstName("Jan").lastName("Melbourne")
@@ -113,6 +116,7 @@ public class StudentControllerTest {
     public void shouldRetrieveStudent() throws Exception {
         given(studentService.getStudent(1L)).willReturn(Optional.of(studentDto));
         mockMvc.perform(get("/students/1"))
+                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -133,16 +137,15 @@ public class StudentControllerTest {
     }
 
     @Test
-    public void shouldNotUpdateInvalidStudent() throws Exception {
+    public void shouldNotUpdateStudentWithDepositLessThanZero() throws Exception {
         studentDto.setAge(100);
-        studentDto.setCreatedAt(null);
-        studentDto.setModifiedAt(null);
         studentDto.setDeposit(-100.00);
-        studentDto.setCountry(null);
+        studentDto.setCountry("Mexico");
 
         mockMvc.perform(put("/students/1")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(new ObjectMapper().writeValueAsString(studentDto)))
+                .andExpect(jsonPath("$.error").value("The deposit value must be 0 or above"))
                 .andExpect(status().isBadRequest());
 
     }

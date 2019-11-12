@@ -4,10 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,6 +23,9 @@ public class Student {
     private String firstName;
     private String lastName;
     private String country;
+    private String branch;
+    @Enumerated(EnumType.STRING)
+    private DegreeType degreeType;
     private int age;
     private Double deposit;
 

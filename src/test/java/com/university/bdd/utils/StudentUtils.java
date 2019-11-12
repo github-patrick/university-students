@@ -1,6 +1,7 @@
 package com.university.bdd.utils;
 
 import com.github.javafaker.Faker;
+import com.university.domain.DegreeType;
 import com.university.dtos.StudentDto;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -38,6 +39,8 @@ public class StudentUtils {
                 .firstName(faker.name().firstName())
                 .lastName(faker.name().lastName())
                 .country(faker.address().country())
+                .degreeType(DegreeType.Masters)
+                .branch(faker.address().city())
                 .deposit(faker.number().randomDouble(2, 1,140))
                 .age(faker.number().numberBetween(18,55))
                 .createdAt(LocalDateTime.now())
