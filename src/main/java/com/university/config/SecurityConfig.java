@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers(HttpMethod.DELETE, "/students").hasRole("USER")
+                .antMatchers(HttpMethod.DELETE, "/students/").hasRole("USER")
                 .and().httpBasic().and()
                 .csrf().disable();
     }

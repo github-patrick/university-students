@@ -108,9 +108,10 @@ public class StudentControllerTest {
 
     @Test
     public void unauthorizedClientCannotDeleteAllStudents() throws Exception {
-        mockMvc.perform(delete("/students"))
+        mockMvc.perform(delete("/students/"))
                 .andExpect(status().isUnauthorized());
     }
+
 
     @Test
     public void shouldRetrieveStudent() throws Exception {
@@ -147,7 +148,6 @@ public class StudentControllerTest {
                 .content(new ObjectMapper().writeValueAsString(studentDto)))
                 .andExpect(jsonPath("$.error").value("The deposit value must be 0 or above"))
                 .andExpect(status().isBadRequest());
-
     }
 
 }
