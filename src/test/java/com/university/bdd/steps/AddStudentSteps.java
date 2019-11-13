@@ -1,6 +1,7 @@
 package com.university.bdd.steps;
 
 import com.university.bdd.utils.StudentUtils;
+import com.university.domain.DegreeType;
 import com.university.dtos.StudentDto;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -23,6 +24,8 @@ public class AddStudentSteps {
     public void i_have_a_student_that_wants_to_be_registered() {
         StudentDto studentDto = StudentDto.builder()
                 .firstName("Jake").lastName("Break").country("Portugal")
+                .branch("Wimbledon")
+                .degreeType(DegreeType.BSc)
                 .deposit(200.00)
                 .age(21).build();
 
@@ -33,15 +36,19 @@ public class AddStudentSteps {
     public void i_have_a_student_that_wants_to_be_registered_who_is_under(Integer int1) {
         StudentDto studentDto = StudentDto.builder()
                 .firstName("David").lastName("Goliath").country("England")
+                .branch("Wimbledon")
+                .degreeType(DegreeType.BSc)
                 .deposit(30.24)
                 .age(17).build();
         context.setStudentDto(studentDto);
     }
 
-    @Given("I have a student that wants to be registered that does not nationality")
-    public void i_have_a_student_that_wants_to_be_registered_that_does_not_nationality() {
+    @Given("I have a student that wants to be registered that does not have a nationality")
+    public void i_have_a_student_that_wants_to_be_registered_that_does_not_have_a_nationality() {
         StudentDto studentDto = StudentDto.builder()
                 .firstName("Jake").lastName("Break").country("")
+                .branch("Wimbledon")
+                .degreeType(DegreeType.BSc)
                 .deposit(200.00)
                 .age(21).build();
 
